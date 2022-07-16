@@ -60,8 +60,7 @@ index = {"port": "00_psql.ipynb",
          "pd_set_float": "00_tools.ipynb",
          "plot_multiple_y": "00_tools.ipynb",
          "sql_head": "00_tools.ipynb",
-         "make_clickable": "00_tools.ipynb",
-         "selected_countries": "00_tools.ipynb"}
+         "make_clickable": "00_tools.ipynb"}
 
 modules = ["psql.py",
            "tools.py"]

@@ -1,0 +1,22 @@
+#conda env update --file environment.yml --prune
+name: mytools
+channels:
+  - pytorch
+  - defaults
+  - conda-forge
+dependencies:
+  - ipykernel
+  - ipywidgets
+  - jupyterlab_widgets
+  - python<3.10
+  - pip
+  - tqdm
+  - psycopg2
+  - SQLAlchemy
+  - pandas
+  - Pillow
+  - pip:
+    - matplotlib
+    - plotly
+    - docker
+    - nbdev

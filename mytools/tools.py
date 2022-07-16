@@ -5,14 +5,13 @@ __all__ = ['get_image_from_url', 'kill', 'get_hash_folder', 'save_selected_citie
            'LogDBHandler', 'get_logger', 'read_image_from_url', 'compound_return', 'copy_func', 'patch_to', 'patch',
            'to_pickle', 'from_pickle', 'telegram', 'pdrows', 'pd_highlight', 'inline', 'plot_map', 'htop',
            'get_proxies', 'append_csv', 'repeat_df', 'to_sql', 'timestamp2int', 'pd_timestamp', 'startEndTimestamp',
-           'docker_container', 'pd_set_float', 'plot_multiple_y', 'sql_head', 'make_clickable', 'selected_countries']
+           'docker_container', 'pd_set_float', 'plot_multiple_y', 'sql_head', 'make_clickable']
 
 # Cell
 from pathlib import Path
 import pandas as pd
 import requests
 import os
-from food.paths import *
 import docker
 import logging
 import psutil
@@ -335,33 +334,3 @@ def sql_head(table, limit=5):
 def make_clickable(val):
     # target _blank to open new window
     return '<a target="_blank" href="{}">{}</a>'.format(val, val)
-
-# Cell
-selected_countries = ['Austria',
-      'Belgium',
-      'Bulgaria',
-      'Croatia',
-      'Cyprus',
-      'Czechia',
-      'Denmark',
-      'Estonia',
-      'Finland',
-      'France',
-      'Germany',
-      'Greece',
-      'Hungary',
-      'Ireland',
-      'Italy',
-      'Latvia',
-      'Lithuania',
-      'Luxembourg',
-      'Malta',
-      'Netherlands',
-      'Poland',
-      'Portugal',
-      'Romania',
-      'Slovakia',
-      'Slovenia',
-      'Spain',
-      'Sweden',
-      'Switzerland']
