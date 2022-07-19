@@ -1,4 +1,4 @@
-#conda env update --file environment.yml --prune
+#mamba env update --file environment.yml --prune
 name: mytools
 channels:
   - pytorch
@@ -16,6 +16,8 @@ dependencies:
   - pandas
   - Pillow
   - pip:
+    - --find-links https://download.pytorch.org/whl/torch_stable.html
+    - torch==1.10.1+cu113
     - matplotlib
     - plotly
     - docker
