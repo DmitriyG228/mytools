@@ -5,3 +5,10 @@ __pycache__/
 .vscode/
 .ipynb_checkpoints/
 
+mytools.egg-info/*
+mytools/__pycache__/* 
+
+
+
+
+

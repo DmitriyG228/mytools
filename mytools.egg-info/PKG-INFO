@@ -7,6 +7,7 @@ Author: {author}
 Author-email: 2280905
 License: Apache Software License 2.0
 Keywords: some keywords
+Platform: UNKNOWN
 Classifier: Development Status :: 3 - Alpha
 Classifier: Intended Audience :: Developers
 Classifier: Natural Language :: English
@@ -19,3 +20,5 @@ Description-Content-Type: text/markdown
 Provides-Extra: dev
 
 # mytools
+
+

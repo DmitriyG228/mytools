@@ -2,7 +2,8 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"du": "00_psql.ipynb",
+index = {"read_sql_query": "00_custom_pandas.ipynb",
+         "du": "00_psql.ipynb",
          "query": "00_psql.ipynb",
          "current": "00_psql.ipynb",
          "kill": "00_tools.ipynb",
@@ -50,10 +51,13 @@ index = {"du": "00_psql.ipynb",
          "pd_set_float": "00_tools.ipynb",
          "plot_multiple_y": "00_tools.ipynb",
          "sql_head": "00_tools.ipynb",
-         "make_clickable": "00_tools.ipynb"}
+         "make_clickable": "00_tools.ipynb",
+         "OneHot": "02_onehot.ipynb"}
 
-modules = ["psql.py",
-           "tools.py"]
+modules = ["custom_pandas.py",
+           "psql.py",
+           "tools.py",
+           "onehot.py"]
 
 doc_url = "https://{user}.github.io/mytools/"
 
