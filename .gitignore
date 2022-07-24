@@ -1,0 +1,14 @@
+__pycache__/*
+__pycache__
+__pycache__/
+/mytools/__pycache__/
+.vscode/
+.ipynb_checkpoints/
+
+mytools.egg-info/*
+mytools/__pycache__/* 
+
+mytools/__pycache__
+
+
+

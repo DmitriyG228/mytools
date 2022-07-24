@@ -1,0 +1,24 @@
+#mamba env update --file environment.yml --prune
+name: mytools
+channels:
+  - pytorch
+  - defaults
+  - conda-forge
+dependencies:
+  - ipykernel
+  - ipywidgets
+  - jupyterlab_widgets
+  - python<3.10
+  - pip
+  - tqdm
+  - psycopg2
+  - SQLAlchemy
+  - pandas
+  - Pillow
+  - pip:
+    - --find-links https://download.pytorch.org/whl/torch_stable.html
+    - torch==1.10.1+cu113
+    - matplotlib
+    - plotly
+    - docker
+    - nbdev
