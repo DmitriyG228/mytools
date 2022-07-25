@@ -11,6 +11,14 @@ from matplotlib import pyplot as plt
 import requests
 
 # Cell
+from matplotlib import pyplot as plt
+import io
+import seaborn as sb
+from matplotlib.colors import ListedColormap,LinearSegmentedColormap
+from PIL import Image
+plt.rcParams['figure.figsize'] = (70,70)
+
+# Cell
 #https://stackoverflow.com/questions/59831211/neighbours-of-a-cell-in-matrix-pytorch
 import torch.nn.functional as nnf
 
@@ -31,9 +39,27 @@ def mean_filter(x_bchw):
     return y_bchw
 
 # Cell
-def visualize_array(array,alpha=0.8):
+def visualize_array(array,back_img = None,alpha=0.3,size = 500,colors = ["white","green","yellow","orange", "red","purple"],values = [0,1,50,100,200,400],vmin=5):
+    if back_img:back_img = back_img.resize((size,size))
+    array = extrapolate(array,size = size)
+
+    l = list(zip([v/max(values) for v in values],colors))
+    cmap=LinearSegmentedColormap.from_list('hmap',l)
+
     fig, ax = plt.subplots()
-    return ax.imshow(array, interpolation='none', alpha=alpha)
+
+
+
+    sb.heatmap(array, alpha=0.8,cmap=cmap,vmin=vmin, vmax=max(values))
+    ax.imshow(back_img, interpolation='none', alpha=1)
+
+    ax.axes.xaxis.set_visible(False)
+    ax.axes.yaxis.set_visible(False)
+
+    buf = io.BytesIO()
+    fig.savefig(buf)
+    buf.seek(0)
+    return Image.open(buf)
 
 # Cell
 def extrapolate(t,factor=None,size=None):
@@ -46,6 +72,7 @@ def extrapolate(t,factor=None,size=None):
 
 # Cell
 def expand_boundaries(t,times=5,factor=5):
+    init_size = t.shape[0]
     t = extrapolate(t,factor=1/factor)
     t = t[None, None, ...].repeat(t.size(1), 1, 1, 1)
     for _ in range(times):
@@ -53,7 +80,7 @@ def expand_boundaries(t,times=5,factor=5):
         t[t>0] = 1
 
     t = t[0,0,:]
-    return extrapolate(t,factor).numpy()
+    return extrapolate(t,size=init_size).numpy()
 
 # Cell
 def crop_center_arr(arr,shape):
@@ -65,7 +92,7 @@ def crop_center_arr(arr,shape):
 
 # Cell
 def apply_mask(img,mask):
-    rop_mask = np.array(mask).astype('int')
+    mask = np.array(mask).astype('int')
     return np.array(img) * np.stack([mask]*3).T
 
 # Cell
