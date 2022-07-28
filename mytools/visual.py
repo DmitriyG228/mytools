@@ -9,6 +9,7 @@ import numpy as np
 import torch
 from matplotlib import pyplot as plt
 import requests
+import pandas as pd
 
 # Cell
 from matplotlib import pyplot as plt
@@ -39,7 +40,7 @@ def mean_filter(x_bchw):
     return y_bchw
 
 # Cell
-def visualize_array(array,back_img = None,alpha=0.3,size = 500,colors = ["white","green","yellow","orange", "red","purple"],values = [0,1,50,100,200,400],vmin=5):
+def visualize_array(array,back_img = None,alpha=0.3,size = 500,colors = ["white","blue","green","yellow","orange", "red","purple"],values = [0,1,50,100,200,300,400],vmin=5):
     if back_img:back_img = back_img.resize((size,size))
     array = extrapolate(array,size = size)
 
@@ -50,8 +51,8 @@ def visualize_array(array,back_img = None,alpha=0.3,size = 500,colors = ["white"
 
 
 
-    sb.heatmap(array, alpha=0.8,cmap=cmap,vmin=vmin, vmax=max(values))
-    ax.imshow(back_img, interpolation='none', alpha=1)
+    sb.heatmap(array, alpha=0.8,cmap=cmap,vmin=vmin, vmax=max(values),cbar=False)
+    if back_img:ax.imshow(back_img, interpolation='none', alpha=1)
 
     ax.axes.xaxis.set_visible(False)
     ax.axes.yaxis.set_visible(False)
@@ -93,7 +94,14 @@ def crop_center_arr(arr,shape):
 # Cell
 def apply_mask(img,mask):
     mask = np.array(mask).astype('int')
-    return np.array(img) * np.stack([mask]*3).T
+    img = np.array(img)
+    # if img[:,:,0].shape !=mask.shape:
+    #     df = pd.DataFrame([mask.shape,img.shape[:-1]])
+    #     df.iloc[0] = -df.iloc[0]
+    #     mask = mask[:-1,:] if df.sum().tolist() ==[0, -1]  else mask[:,:-1]
+
+
+    return img * np.stack([mask]*3).T
 
 # Cell
 def crop_zeros(img_arr):
@@ -106,10 +114,12 @@ def crop_zeros(img_arr):
 
 # Cell
 def crop_image_to_square(img):
-    height = img.size[1]//2*2
-    left  = int((img.size[0]-height)/2)
-    right =      img.size[0]-left
-    return img.crop((left,0,right,height))
+    size = max(img.size)//2*2
+
+    x_adj = int((img.size[0]-size)/2)
+    y_adj = int((img.size[1]-size)/2)
+
+    return img.crop((x_adj,y_adj,size+x_adj,size+y_adj))
 
 # Cell
 def search_clip(url,foods,food_clips,head = 1):
