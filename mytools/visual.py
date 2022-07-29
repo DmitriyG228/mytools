@@ -40,22 +40,17 @@ def mean_filter(x_bchw):
     return y_bchw
 
 # Cell
-def visualize_array(array,back_img = None,alpha=0.3,size = 500,colors = ["white","blue","green","yellow","orange", "red","purple"],values = [0,1,50,100,200,300,400],vmin=5):
-    if back_img:back_img = back_img.resize((size,size))
-    array = extrapolate(array,size = size)
+def visualize_array(array,back_img = None,alpha=0.3,size = 500,colors = ["white","lime","green","yellow","orange", "red","purple"],values = [0,1,50,100,200,300,400],vmin=5):
 
     l = list(zip([v/max(values) for v in values],colors))
     cmap=LinearSegmentedColormap.from_list('hmap',l)
-
-    fig, ax = plt.subplots()
-
-
-
-    sb.heatmap(array, alpha=0.8,cmap=cmap,vmin=vmin, vmax=max(values),cbar=False)
-    if back_img:ax.imshow(back_img, interpolation='none', alpha=1)
-
+    if not array.T.shape == back_img.size:array = extrapolate(array,size = size)
+    fig, ax = plt.subplots(figsize=(15,15))
     ax.axes.xaxis.set_visible(False)
     ax.axes.yaxis.set_visible(False)
+
+    sb.heatmap(array, alpha=0.8,cmap=cmap,vmin=vmin, vmax=max(values),cbar=False)
+    ax.imshow(back_img, interpolation='none', alpha=1)
 
     buf = io.BytesIO()
     fig.savefig(buf)
