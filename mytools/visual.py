@@ -108,13 +108,18 @@ def crop_zeros(img_arr):
                       top_left[1]:bottom_right[1]+1]).astype(np.uint8)
 
 # Cell
-def crop_image_to_square(img):
-    size = max(img.size)//2*2
+def crop_image_to_square(img,get_adj = False):
+    size = max(img.size)
 
     x_adj = int((img.size[0]-size)/2)
     y_adj = int((img.size[1]-size)/2)
 
-    return img.crop((x_adj,y_adj,size+x_adj,size+y_adj))
+
+    img =  img.crop((x_adj,y_adj,size+x_adj,size+y_adj))
+
+
+    if get_adj: return img, (x_adj,y_adj,size)
+    else      : return img
 
 # Cell
 def search_clip(url,foods,food_clips,head = 1):
