@@ -107,3 +107,4 @@ sudo docker run --name dima_postgres_dev -e POSTGRES_PASSWORD=KJnbuiwuef89k -d -
 
 ##nginx
 # /etc/nginx/sites-available
+# sudo systemctl restart nginx
