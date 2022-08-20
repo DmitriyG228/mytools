@@ -60,6 +60,8 @@ index = {"read_sql_query": "00_custom_pandas.ipynb",
          "apply_mask": "00_visual.ipynb",
          "crop_zeros": "00_visual.ipynb",
          "crop_image_to_square": "00_visual.ipynb",
+         "get_image_clip": "00_visual.ipynb",
+         "get_text_clip": "00_visual.ipynb",
          "search_clip": "00_visual.ipynb",
          "OneHot": "02_onehot.ipynb"}
 
