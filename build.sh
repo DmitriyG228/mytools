@@ -52,8 +52,10 @@
 
 
 # docker container postgis
-sudo docker pull postgis/postgis
-sudo docker run --name dima_postgres_dev -e POSTGRES_PASSWORD=KJnbuiwuef89k -d -p 5434:5432 postgis/postgis 
+# sudo docker pull postgis/postgis
+# sudo docker run --name dima_postgres_dev -e POSTGRES_PASSWORD=KJnbuiwuef89k -d -p 5434:5432 postgis/postgis ###todo mount volume !
+
+# docker update --restart unless-stopped psql_food_dev
 
 
 # github 
