@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['query', 'schema', 'LocalBase', 'du', 'current', 'kill', 'insert_on_conflict', 'read_sql']
 
-# %% ../00_psql.ipynb 1
+# %% ../00_psql.ipynb 2
 from sqlalchemy import create_engine
 from sqlalchemy import DateTime
 from sqlalchemy import Boolean
@@ -42,7 +42,7 @@ from sqlalchemy.dialects.postgresql import REAL
 
 from sqlalchemy import cast
 
-# %% ../00_psql.ipynb 3
+# %% ../00_psql.ipynb 4
 def du(partitions='no'):
 
     df = query("""SELECT *, pg_size_pretty(total_bytes) AS total
@@ -75,22 +75,22 @@ def du(partitions='no'):
     else:                  df = df
     return df.sort_values('index_Gb',ascending=False)
 
-# %% ../00_psql.ipynb 4
+# %% ../00_psql.ipynb 5
 query = lambda q: pd.read_sql_query(q,engine)
 
-# %% ../00_psql.ipynb 5
+# %% ../00_psql.ipynb 6
 def current():
     return query("SELECT * FROM pg_stat_activity where state = 'active';")[['pid','query_start','state_change','wait_event_type','wait_event','query','backend_type']]
 
-# %% ../00_psql.ipynb 6
+# %% ../00_psql.ipynb 7
 def kill(pid):
     return engine.execute(f'SELECT pg_terminate_backend({pid})')
 
-# %% ../00_psql.ipynb 7
+# %% ../00_psql.ipynb 8
 schema = 'food'
 LocalBase = declarative_base(metadata=MetaData(schema=schema))
 
-# %% ../00_psql.ipynb 8
+# %% ../00_psql.ipynb 9
 def insert_on_conflict(df,table,engine,update = False, update_cols = None,unique_cols=[],schema=schema):
     metadata = MetaData(schema=schema)
     metadata.bind = engine
@@ -110,5 +110,5 @@ def insert_on_conflict(df,table,engine,update = False, update_cols = None,unique
 
     engine.execute(do_nothing_stmt)
 
-# %% ../00_psql.ipynb 9
+# %% ../00_psql.ipynb 10
 def read_sql(table,schema,engine): return pd.read_sql(f'select * from {schema}.{table}',engine)
