@@ -2,8 +2,8 @@
 
 # %% auto 0
 __all__ = ['series2tensor', 'cos', 'norm', 'mean_filter', 'visualize_array', 'extrapolate', 'expand_boundaries',
-           'crop_center_arr', 'apply_mask', 'crop_zeros', 'crop_image_to_square', 'get_image_clip', 'get_text_clip',
-           'search_clip']
+           'crop_center_arr', 'apply_mask', 'crop_zeros', 'crop_image_to_square', 'get_image_clip_from_paths',
+           'get_image_clip', 'get_text_clip', 'search_clip']
 
 # %% ../00_visual.ipynb 1
 from .tools import *
@@ -135,14 +135,20 @@ def crop_image_to_square(img,get_adj = False):
     else      : return img
 
 # %% ../00_visual.ipynb 17
+def get_image_clip_from_paths(paths):
+    paths = [str(p) for p in paths]
+    paths = ','.join(paths)
+    return requests.post(f'http://127.0.0.1:8182/imagepaths2vector/?paths={paths}').json()
+
+# %% ../00_visual.ipynb 18
 def get_image_clip(url):
     return torch.tensor(requests.post(f'http://127.0.0.1:8182/image2vector/?url={url}').json())
 
-# %% ../00_visual.ipynb 18
+# %% ../00_visual.ipynb 19
 def get_text_clip(text):
     return torch.tensor(requests.post(f'http://127.0.0.1:8182/text2vector/?text={text}').json())
 
-# %% ../00_visual.ipynb 19
+# %% ../00_visual.ipynb 23
 def search_clip(url,foods,food_clips,prompt_clip=None, head = 1,prompt_factor=3):
     clip = get_image_clip(url)
     if prompt_clip is not None:

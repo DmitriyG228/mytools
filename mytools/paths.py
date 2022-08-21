@@ -9,6 +9,5 @@ import os
 
 # %% ../00_paths.ipynb 2
 main_path = Path(os.getenv("HOME"))
-main_path = main_path/'new'
 data_path = main_path/'data'
 datasets_path = data_path/'datasets'
