@@ -6,7 +6,8 @@ __all__ = ['pd_timestamp', 'get_env', 'get_image_from_url', 'get_image', 'kill',
            'df_chunk_generator', 'docker_container', 'LogDBHandler', 'get_logger', 'read_image_from_url',
            'compound_return', 'copy_func', 'patch_to', 'patch', 'to_pickle', 'from_pickle', 'telegram', 'pdrows',
            'pd_highlight', 'inline', 'plot_map', 'htop', 'get_proxies', 'append_csv', 'repeat_df', 'to_sql',
-           'timestamp2int', 'startEndTimestamp', 'pd_set_float', 'plot_multiple_y', 'sql_head', 'make_clickable']
+           'timestamp2int', 'startEndTimestamp', 'pd_set_float', 'plot_multiple_y', 'sql_head', 'make_clickable',
+           'save_str2file']
 
 # %% ../00_tools.ipynb 1
 from pathlib import Path
@@ -362,3 +363,7 @@ def sql_head(table, limit=5):
 def make_clickable(val):
     # target _blank to open new window
     return '<a target="_blank" href="{}">{}</a>'.format(val, val)
+
+# %% ../00_tools.ipynb 41
+def save_str2file(s,path):
+    with open(Path(path), "wt") as f: f.write(s)

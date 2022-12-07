@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['series2tensor', 'cos', 'norm', 'mean_filter', 'visualize_array', 'extrapolate', 'expand_boundaries',
            'crop_center_arr', 'apply_mask', 'crop_zeros', 'crop_image_to_square', 'get_image_clip_from_paths',
-           'get_image_clip', 'get_text_clip', 'search_clip']
+           'get_image_clip', 'get_text_clip', 'search_clip', 'select_cuda']
 
 # %% ../00_visual.ipynb 1
 from .tools import *
@@ -159,3 +159,21 @@ def search_clip(url,foods,food_clips,prompt_clip=None, head = 1,prompt_factor=3)
     df = df.sort_values('score',ascending=False)[:head]
 
     return clip,df.reset_index()
+
+# %% ../00_visual.ipynb 24
+def select_cuda():
+    import  py3nvml.py3nvml as nvidia_smi
+
+    nvidia_smi.nvmlInit()
+
+    deviceCount = nvidia_smi.nvmlDeviceGetCount()
+    dfs =[]
+    for i in range(deviceCount):
+        handle = nvidia_smi.nvmlDeviceGetHandleByIndex(i)
+        info = nvidia_smi.nvmlDeviceGetMemoryInfo(handle)
+        dfs.append( pd.DataFrame([i, 100*info.free/info.total],
+                 index = ['device', 'free']).T)
+    devices = pd.concat(dfs).astype('int64').set_index('device')
+    nvidia_smi.nvmlShutdown()
+
+    return devices[devices['free']==devices['free'].max()].index[0]
