@@ -7,7 +7,7 @@ __all__ = ['pd_timestamp', 'get_env', 'get_image_from_url', 'get_image', 'kill',
            'compound_return', 'copy_func', 'patch_to', 'patch', 'to_pickle', 'from_pickle', 'telegram', 'pdrows',
            'pd_highlight', 'inline', 'plot_map', 'htop', 'get_proxies', 'append_csv', 'repeat_df', 'to_sql',
            'timestamp2int', 'startEndTimestamp', 'pd_set_float', 'plot_multiple_y', 'sql_head', 'make_clickable',
-           'save_str2file']
+           'save_str2file', 'get_api_key']
 
 # %% ../00_tools.ipynb 1
 from pathlib import Path
@@ -367,3 +367,8 @@ def make_clickable(val):
 # %% ../00_tools.ipynb 41
 def save_str2file(s,path):
     with open(Path(path), "wt") as f: f.write(s)
+
+# %% ../00_tools.ipynb 42
+def get_api_key(api_path,name):
+    with open(api_path/f'{name}') as file: return file.read().strip()
+    
