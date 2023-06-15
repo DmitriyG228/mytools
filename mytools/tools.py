@@ -286,10 +286,10 @@ def htop():
 
 # %% ../00_tools.ipynb 29
 def get_proxies():
-    proxies = pd.read_csv('proxy.txt')
+    proxies = pd.read_csv('/home/dima/data/proxy.txt')
     proxies.columns = ['prixies']
     proxies = proxies['prixies'].tolist()
-    proxies = [line.strip().split(':') for line in open("proxy.txt", "r").readlines()]
+    proxies = [line.strip().split(':') for line in open("/home/dima/data/proxy.txt", "r").readlines()]
     return [f'http://{proxy[2]}:{proxy[3]}@{proxy[0]}:{proxy[1]}' for proxy in proxies]
 
 # %% ../00_tools.ipynb 30
