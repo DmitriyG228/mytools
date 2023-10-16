@@ -14,7 +14,6 @@ from pathlib import Path
 import pandas as pd
 import requests
 import os
-import docker
 import logging
 import psutil
 import hashlib
@@ -150,6 +149,7 @@ def df_chunk_generator(df,chunksize,shuffle=False):
 
 # %% ../00_tools.ipynb 16
 def docker_container(name):
+    import docker
     client = docker.from_env()
     return [c for c in client.containers.list(all=True) if c.attrs['Name'] == f'/{name}'][0]
 
@@ -328,6 +328,7 @@ def startEndTimestamp(length,shift = 0):
 
 # %% ../00_tools.ipynb 36
 def docker_container(name):
+    import docker
     client = docker.from_env()
     return [c for c in client.containers.list(all=True) if c.attrs['Name'] == f'/{name}'][0]
 

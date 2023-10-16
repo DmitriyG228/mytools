@@ -31,7 +31,7 @@ def _ask_chatgpt(text,messages=[],prefix=[],role = 'user',return_request=False,m
                                          **kwargs
                                         )
 
-# %% ../00_chatgptfuncs.ipynb 7
+# %% ../00_chatgptfuncs.ipynb 6
 def ask_chatgpt(text,messages=[],prefix=[],role = 'user',return_request=False,model="gpt-3.5-turbo-0301",**kwargs):
     request = prompt(role,text)
     r = _ask_chatgpt(text,messages=messages,prefix=prefix,role = 'user',return_request=False,model=model,**kwargs)
@@ -41,7 +41,7 @@ def ask_chatgpt(text,messages=[],prefix=[],role = 'user',return_request=False,mo
     else: return response
     
 
-# %% ../00_chatgptfuncs.ipynb 9
+# %% ../00_chatgptfuncs.ipynb 8
 def chat(text, messages=[],prefix=[],model='gpt-3.5-turbo',append=True,role='user',**kwargs):
     response,request = ask_chatgpt(text,messages=messages,prefix=prefix,role=role,return_request=True,**kwargs)
     if append:
@@ -51,7 +51,7 @@ def chat(text, messages=[],prefix=[],model='gpt-3.5-turbo',append=True,role='use
     return messages
 
 
-# %% ../00_chatgptfuncs.ipynb 11
+# %% ../00_chatgptfuncs.ipynb 10
 def ask_chatgpt_stream(text,messages=[],prefix=[],role = 'user',return_request=False,model="gpt-3.5-turbo-0301",**kwargs):
     
     r = _ask_chatgpt(text,messages=messages,prefix=prefix,role = 'user',return_request=False,model=model,stream = True,**kwargs)
@@ -59,7 +59,7 @@ def ask_chatgpt_stream(text,messages=[],prefix=[],role = 'user',return_request=F
         try:     yield i.choices[0].delta.content 
         except: pass
 
-# %% ../00_chatgptfuncs.ipynb 13
+# %% ../00_chatgptfuncs.ipynb 12
 async def ask_chatgpt_stream_async(text,messages=[],prefix=[],role = 'user',return_request=False,model="gpt-3.5-turbo-0301",**kwargs):
     
     r = _ask_chatgpt(text,messages=messages,prefix=prefix,role = 'user',return_request=False,model=model,stream = True,**kwargs)
@@ -70,7 +70,7 @@ async def ask_chatgpt_stream_async(text,messages=[],prefix=[],role = 'user',retu
                 break
             except: pass
 
-# %% ../00_chatgptfuncs.ipynb 16
+# %% ../00_chatgptfuncs.ipynb 15
 import tiktoken
 enc = tiktoken.encoding_for_model("gpt-4")
 def crop_tokens(messages,max_tokens=2500):
@@ -83,7 +83,7 @@ def crop_tokens(messages,max_tokens=2500):
     token_index = token_count_df[token_count_df['len']<max_tokens].index
     return [messages[i] for i in token_index]
 
-# %% ../00_chatgptfuncs.ipynb 19
+# %% ../00_chatgptfuncs.ipynb 18
 def strip_text(text,urls):
     for url in urls: text = text.replace(url,'').strip()
     while True:
@@ -96,7 +96,7 @@ def strip_text(text,urls):
     return text
     
 
-# %% ../00_chatgptfuncs.ipynb 20
+# %% ../00_chatgptfuncs.ipynb 19
 extract_urls = lambda text: re.findall('https?://[^\s]+', text)
 
 get_button_text = lambda url:url.split('q=')[1].split('&')[0].replace('+',' ')
